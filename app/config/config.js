@@ -19,8 +19,8 @@ module.exports = {
         'post_key': 'cUEdst254cRWsLgQGEwA',
     },
     
-    baseUrl: 'http://localhost:5000/', // Ex
-
+    baseUrl: 'http://localhost:5000/', 
+    centralUrl: 'http://localhost:3000/',
 
     // For File Upload And 
     tmpDir: 'tmp/',

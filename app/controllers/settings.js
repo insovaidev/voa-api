@@ -260,8 +260,9 @@ module.exports = function (app) {
             data['password'] = await passwordLib.hash(data.password)
             data.last_user_agent = req.headers["user-agent"]
             data.last_ip = generalLib.getIp(req)
-            const body = generalLib.omit(data, 'confirmPassword')
-            const addUser = await axios.post(config.centralUrl+'users/create', body) // 
+            delete data.password
+            // const body = generalLib.omit(data, 'confirmPassword')
+            const addUser = await axios.post(config.centralUrl+'users/create', data) // Central API
             // Add activity 
             if(addUser && addUser.data.data != undefined){
                 const actData = addUser.data.data
