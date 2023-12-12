@@ -8,7 +8,8 @@ module.exports = {
         this.createDir(distrination)
         if(fs.existsSync(source)) {
             if(deleteSource) {
-                fs.renameSync(source, distrination)
+                // fs.renameSync(source, distrination) // Old code
+                fs.copyFileSync(source, distrination) // New code
             } else {
                 fs.copyFileSync(source, distrination)
             }

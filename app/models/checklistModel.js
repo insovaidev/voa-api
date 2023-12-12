@@ -60,7 +60,7 @@ module.exports = {
         return result[0]
     },
 
-    update: async function(id, data) {
+    update: async function(id, data) {        
         data.updated_at = generalLib.dateTime()
         const result = await db(table).update(data).whereRaw('id = uuid_to_bin('+"'"+id+"'"+')')
         return result == 1

@@ -99,6 +99,8 @@ module.exports = function (app) {
             visa_body.uid = checklist.uid
             visa_body.vid = checklist.id
             visa_body.visa_type = body.visa_type
+            
+            var checklistsAttachments = JSON.parse(checklist.data)
 
             // Get attachments from Checklist
             if (result = JSON.parse(checklist.data)) { // attachments
@@ -109,11 +111,17 @@ module.exports = function (app) {
                 if (result.attachments) {
                     if (result.attachments.photo != undefined && result.attachments.photo) {
                         if (!fileLib.exist(config.tmpDir + result.attachments.photo)) return res.status(422).send({ 'message': 'Photo file not found.' })
-                        if (file = fileLib.copyTo(config.tmpDir + result.attachments.photo, port, passportId)) attachments.photo = file.dir
+                        if (file = fileLib.copyTo(config.tmpDir + result.attachments.photo, port, passportId)){
+                            attachments.photo = file.dir
+                            checklistsAttachments.attachments.photo = file.dir
+                        } 
                     }
                     if (result.attachments.passport != undefined && result.attachments.passport) {
                         if (!fileLib.exist(config.tmpDir + result.attachments.passport)) return res.status(422).send({ 'message': 'Passport file not found.' })
-                        if (file = fileLib.copyTo(config.tmpDir + result.attachments.passport, port, passportId)) attachments.passport = file.dir
+                        if (file = fileLib.copyTo(config.tmpDir + result.attachments.passport, port, passportId)) {
+                            attachments.passport = file.dir
+                            checklistsAttachments.attachments.passport = file.dir
+                        } 
                     }
                 }
 
@@ -122,6 +130,9 @@ module.exports = function (app) {
                     visa_body.attachments = JSON.stringify(attachments)
                 }
             }
+
+            // updated checklist attachments 
+            await checklistModel.update(checklist.id, {'data': JSON.stringify(checklistsAttachments)})
 
             const passport = await passportModel.get({ filters: { passport_id: body.passport_id } })
 
