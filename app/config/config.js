@@ -1,6 +1,6 @@
 module.exports = {
     env: 'development', // 'development', 'production'
-    port: process.env.PORT ? process.env.PORT : 5000,
+    port: 5000,
 
     // combine with user password
     key: 'C@mb0D1A#K1Nd0m#0F#W0nd3r',
