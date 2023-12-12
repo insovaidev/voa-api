@@ -5,7 +5,7 @@ const development = {
   port : 3306,
   user: 'root',
   password: '',
-  database: 'test_voa_local'
+  database: process.env.DATABASE ? process.env.DATABASE : 'test_voa_local'
 }
 
 const production = {

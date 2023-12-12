@@ -1,6 +1,6 @@
 module.exports = {
     env: 'development', // 'development', 'production'
-    port: 5000,
+    port: process.env.PORT ? process.env.PORT : 5000,
 
     // combine with user password
     key: 'C@mb0D1A#K1Nd0m#0F#W0nd3r',
@@ -21,7 +21,7 @@ module.exports = {
     
     baseUrl: 'http://localhost:5000/', // Ex
 
-    
+
     // For File Upload And 
     tmpDir: 'tmp/',
     uploadDir: 'uploads/',
